@@ -30,6 +30,7 @@
       out[key] = {
         date: e.date || key,
         event: e.event || "",
+        schedule: typeof e.schedule === "string" ? e.schedule : "",
         myHappy: toHappyArray(e.myHappy),
         yourHappy: toHappyArray(e.yourHappy),
         updatedAt: e.updatedAt || null

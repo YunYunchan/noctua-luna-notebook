@@ -27,11 +27,13 @@
       var dateStr = NL.cycleUtil.dateToStr(date);
       var e = NL.state.data.entries[dateStr];
       var hasEntry = !!(e && (e.event || (e.myHappy && e.myHappy.length) || (e.yourHappy && e.yourHappy.length)));
+      var schedule = e && e.schedule ? e.schedule : "";
       var isToday = dateStr === todayStr;
       return (
         '<button type="button" class="cal-cell' + (isToday ? " cal-cell-today" : "") + '" data-date="' + dateStr + '">' +
           '<span class="cal-day">' + d + "</span>" +
           '<span class="cal-moon" aria-hidden="true">' + NL.moon.getPhaseEmoji(date) + "</span>" +
+          (schedule ? '<span class="cal-schedule">' + NL.util.escapeHTML(schedule) + "</span>" : "") +
           (hasEntry ? '<span class="cal-dot" aria-hidden="true"></span>' : "") +
         "</button>"
       );
@@ -71,11 +73,13 @@
 
   function openDayModal(dateStr) {
     var date = NL.cycleUtil.strToDate(dateStr);
-    var entry = NL.state.data.entries[dateStr] || { date: dateStr, event: "", myHappy: [], yourHappy: [] };
+    var entry = NL.state.data.entries[dateStr] || { date: dateStr, event: "", schedule: "", myHappy: [], yourHappy: [] };
 
     var html =
       '<h2 class="modal-title">' + NL.cycleUtil.formatJPDate(date, true) +
         ' <span class="moon-emoji">' + NL.moon.getPhaseEmoji(date) + "</span></h2>" +
+      '<label class="field-label" for="m-schedule">予定 <span class="field-hint">(短いメモでOK)</span></label>' +
+      '<input id="m-schedule" class="input" type="text" maxlength="40" value="' + NL.util.escapeAttr(entry.schedule) + '" placeholder="例:友達とランチ">' +
       '<label class="field-label" for="m-event">今日の出来事</label>' +
       '<textarea id="m-event" class="input textarea" rows="4">' + NL.util.escapeHTML(entry.event) + "</textarea>" +
       '<label class="field-label">My Happy <span class="field-hint">(最大3つ)</span></label>' +
@@ -94,6 +98,7 @@
 
       document.getElementById("m-save").addEventListener("click", function () {
         var cur = NL.state.data.entries[dateStr] || { date: dateStr };
+        cur.schedule = document.getElementById("m-schedule").value.trim();
         cur.event = document.getElementById("m-event").value;
         cur.myHappy = NL.happyFields.collect(myHappyGroupEl);
         cur.yourHappy = NL.happyFields.collect(yourHappyGroupEl);
