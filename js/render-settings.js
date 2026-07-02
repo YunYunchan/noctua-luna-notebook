@@ -36,7 +36,7 @@
 
         '<h3 class="section-title">Noctua Luna について</h3>' +
         '<div class="card credits-card">' +
-          '<p class="field-hint">「毎日戦っている人たちの、休息の場所」</p>' +
+          '<p class="field-hint">「月に今日を預けて、また明日、笑って過ごそう。」</p>' +
           '<p class="field-hint">この記録帳は、あなたのブラウザだけに保存され、どこにも送信されません。</p>' +
         "</div>" +
       "</section>";

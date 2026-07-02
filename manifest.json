@@ -1,7 +1,7 @@
 {
   "name": "Noctua Luna — 日々の記録帳",
   "short_name": "Noctua Luna",
-  "description": "毎日戦っている人たちの、休息の場所。",
+  "description": "月に今日を預けて、また明日、笑って過ごそう。",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
